@@ -303,7 +303,7 @@ esp_err_t app_weather_get_current_info(weather_info_t *info, location_num_t loca
     CHECK(info, "Parsing NULL of info", ESP_ERR_INVALID_ARG);
     if (weather_info[location]) {
         memcpy(info, weather_info[location], sizeof(weather_info_t));
-        ESP_LOGI(TAG, "111city_id111: [%d], 111Temp111 : [%d]", location, info->temp);
+        ESP_LOGI(TAG, "hhfcity_id: [%d], Temp : [%d], icon: [%d]", location, info->temp,info->icon_code);
         return ESP_OK;
     }
 

@@ -395,7 +395,8 @@ static void ui_clock_icon_update(void)
     if (icon_code != weather_info.icon_code) {
         icon_code = weather_info.icon_code;
 
-        sprintf(file_path, "S:/Icon/%s.bin", weather_info.icon_code);
+        /* Build filename from numeric icon code (use %03d for 3-digit codes) */
+        snprintf(file_path, sizeof(file_path), "S:/Icon/%03d.bin", (int)weather_info.icon_code);
 
         if (LV_FS_RES_OK == lv_fs_open(&file, file_path, LV_FS_MODE_RD)) {
             lv_fs_close(&file);
@@ -406,7 +407,9 @@ static void ui_clock_icon_update(void)
         ui_laod_resource(file_path, &data_icon_weather);
         lv_img_set_src(img_weather, data_icon_weather);
 
-        free(old_icon_ptr);
+        if (NULL != old_icon_ptr) {
+            free(old_icon_ptr);
+        }
     }
 }
 
@@ -435,7 +438,7 @@ void ui_clock_update(void)
     // lv_label_set_text_static(label_air, air_info.level);
     // lv_obj_align(label_air, NULL, LV_ALIGN_CENTER, 80, 0);
 
-    // ui_clock_icon_update();
+    ui_clock_icon_update();
 }
 
 void ui_clock_update_date(void)

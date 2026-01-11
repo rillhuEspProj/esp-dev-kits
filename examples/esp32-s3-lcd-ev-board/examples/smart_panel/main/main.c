@@ -38,6 +38,7 @@ static void ui_task(void *arg)
 void app_main(void)
 {
     ESP_LOGI(TAG, "system start");
+	esp_log_level_set("*", ESP_LOG_DEBUG);
 
     // Initialize NVS.
     esp_err_t err = nvs_flash_init();
